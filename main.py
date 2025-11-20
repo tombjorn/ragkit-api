@@ -3,14 +3,14 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pipelines.dnd_pipeline import get_pipeline
-from pipelines.business_pipeline import get_pipeline as get_business
+# from pipelines.business_pipeline import get_pipeline as get_business
 
 app = FastAPI(title="RAGKit API")
 
 # Initialize pipelines ONCE at startup
 PIPELINES = {
     "dnd": get_pipeline(),
-    "business": get_business(),
+    # "business": get_business(),
 }
 
 # --- Request Schema ---
@@ -40,3 +40,7 @@ def query_pipeline(pipeline_name: str, req: QueryRequest):
         "answer": result.get("answer"),
         "raw": result  # keep raw for debugging
     }
+
+@app.get("/")
+def root():
+    return {"message": "RAGKit API is running", "available_endpoints": ["/pipelines", "/query/{pipeline_name}"]}

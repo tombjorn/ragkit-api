@@ -1,3 +1,4 @@
+# builder/build_pipeline.py
 from ragkit import RAGPipeline
 from builder.registries import BLOCK_REGISTRY, AUGMENTATION_REGISTRY
 from runtime.llm import llm_client

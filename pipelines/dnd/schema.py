@@ -1,4 +1,4 @@
-DND_SCHEMA = {
+SCHEMA = {
     "name": "dnd",
 
     "config": {
@@ -14,7 +14,7 @@ DND_SCHEMA = {
         {
             "type": "augmentation",
             "params": {
-                "augmentations": ["hyde"],
+                "augmentations": ["least_to_most"],
                 "include_original": True,
             },
         },

@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pipelines.dnd.pipeline import get_dnd_pipeline
 from pipelines.dnd.schema import DND_SCHEMA
-
+from runtime.schemas import list_blocks, list_augmentations
 # from pipelines.business_pipeline import get_pipeline as get_business
 
 app = FastAPI(title="RAGKit API")
@@ -64,5 +64,21 @@ def health():
 @app.get("/pipelines/{pipeline_name}/schema")
 def get_pipeline_schema(pipeline_name: str):
     if pipeline_name == "dnd":
+        return DND_SCHEMA
+    raise HTTPException(status_code=404, detail="Pipeline not found")
+
+@app.get("/blocks")
+def get_blocks():
+    return list_blocks()
+
+
+@app.get("/augmentations")
+def get_augmentations():
+    return {"augmentations": list_augmentations()}
+
+
+@app.get("/pipelines/{name}/schema")
+def get_pipeline_schema(name: str):
+    if name == "dnd":
         return DND_SCHEMA
     raise HTTPException(status_code=404, detail="Pipeline not found")

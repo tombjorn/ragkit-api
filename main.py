@@ -26,7 +26,7 @@ app.add_middleware(
 # # --- Initialize pipelines ONCE ---
 PIPELINES={}
 
-for name in ["dnd"]:
+for name in ["dnd", "dnd_complex"]:
     schema = load_pipeline_schema(name)
     PIPELINES[name] = build_pipeline(schema)
 

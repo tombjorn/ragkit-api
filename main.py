@@ -1,12 +1,21 @@
 # main.py
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pipelines.dnd_pipeline import get_pipeline
 # from pipelines.business_pipeline import get_pipeline as get_business
 
 app = FastAPI(title="RAGKit API")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # Next.js dev
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Initialize pipelines ONCE at startup
 PIPELINES = {
     "dnd": get_pipeline(),

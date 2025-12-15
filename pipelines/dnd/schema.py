@@ -1,32 +1,32 @@
 DND_SCHEMA = {
     "name": "dnd",
-    "description": "D&D RAG pipeline with lore + rules",
+
+    "config": {
+        "collection_name": "dnd",
+        "system_prompt": (
+            "You are a D&D expert. "
+            "Use the provided context to answer the question.\n\n"
+            "Context:\n{context}\n\nQuestion:\n{query}\n\nAnswer:"
+        ),
+    },
+
     "blocks": [
         {
-            "id": "augmentation",
-            "type": "AugmentationBlock",
-            "options": {
-                "hyde": {
-                    "enabled": True,
-                    "description": "Hypothetical document expansion"
-                }
-            }
+            "type": "augmentation",
+            "params": {
+                "augmentations": ["hyde"],
+                "include_original": True,
+            },
         },
         {
-            "id": "retriever",
-            "type": "RetrieverBlock",
-            "options": {
-                "top_k": {
-                    "type": "int",
-                    "default": 3,
-                    "min": 1,
-                    "max": 10
-                }
-            }
+            "type": "retriever",
+            "params": {
+                "top_k": 3,
+            },
         },
         {
-            "id": "generator",
-            "type": "GeneratorBlock"
-        }
-    ]
+            "type": "generator",
+            "params": {},
+        },
+    ],
 }
